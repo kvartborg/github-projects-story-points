@@ -1,7 +1,7 @@
 (function (d, w) {
 'use strict';
 
-var estimateRegEx = /^estimate: ([\d\.]+)$/im;
+var estimateRegEx = /^f([\d\.]+)$/im;
 
 var debounce = function (func, wait, immediate) {
   var timeout;
@@ -40,18 +40,18 @@ var titleWithTotalPoints = (title, points, unestimated) => {
     let points_element = "";
 
     if (unestimated > 0) {
-      unestimated_element = `${unestimated} missing estimate`;
+      unestimated_element = ``;
     }
 
     if (points > 0) {
-      points_element = `${points} points`;
+      points_element = `${points}`;
     }
 
     if (points_element && unestimated_element) {
       unestimated_element = `, ${unestimated_element}`;
     }
 
-    return `${title} card${pluralize(title)} <span class="github-project-story-points" style="font-size:xx-small">(${points_element}${unestimated_element})</span>`;
+    return `${title} <span class="github-project-story-points" style="font-size:xx-small">(${points_element}${unestimated_element})</span>`;
 };
 
 var addStoryPointsForColumn = (column) => {
@@ -64,7 +64,7 @@ var addStoryPointsForColumn = (column) => {
 
       const estimateLabels = Array
         .from(card.getElementsByClassName('issue-card-label'))
-        .filter(label => label.innerText.includes('estimate'))
+        .filter(label => label.innerText.includes('f'))
 
       const firstEstimateText = (
         estimateLabels.length > 0 ? estimateLabels[0].innerText.trim() : null)
